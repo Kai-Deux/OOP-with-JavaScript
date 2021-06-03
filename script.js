@@ -2,6 +2,7 @@
 
 const Person = function (firstName, birthYear) {
     // Instance properties
+
     this.firstName = firstName;
     this.birthYear = birthYear;
 
@@ -25,3 +26,28 @@ console.log(usha, gray);
 
 console.log(kai instanceof Person);
 
+// Prototypes
+console.log(Person.prototype);
+
+Person.prototype.calcAge = function () {
+    console.log(2037 - this.birthYear);
+};
+
+kai.calcAge();
+usha.calcAge();
+gray.calcAge();
+
+console.log(kai.__proto__);
+console.log(kai.__proto__ === Person.prototype);
+
+console.log(Person.prototype.isPrototypeOf(kai));
+console.log(Person.prototype.isPrototypeOf(gray));
+console.log(Person.prototype.isPrototypeOf(Person));
+
+//.prototyeOfLinkedObjects
+
+Person.prototype.species = 'Homo Sapiens';
+console.log(kai.species, gray.species);
+
+console.log(kai.hasOwnProperty('firstName'));
+console.log(kai.hasOwnProperty('species'));
