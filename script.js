@@ -1,5 +1,5 @@
 'use strict';
-/*
+
 const Person = function (firstName, birthYear) {
     // Instance properties
 
@@ -25,6 +25,13 @@ const gray = new Person('Gray', 2017);
 console.log(usha, gray);
 
 console.log(kai instanceof Person);
+
+Person.hey = function () {
+    console.log('Hey There👋🏽');
+    console.log(this);
+};
+Person.hey();
+
 
 // Prototypes
 console.log(Person.prototype);
@@ -73,7 +80,7 @@ console.log(arr.unique());
 
 const h1 = document.querySelector('h1');
 console.dir(x => x + 1);
-*/
+
 
 // class expression
 // const PersonCl = class {}
@@ -85,6 +92,7 @@ class PersonCl {
         this.birthYear = birthYear;
     }
 
+    // Instance Methods
     // Methods will be added to .prototype property
     calcAge() {
         console.log(2037 - this.birthYear);
@@ -98,6 +106,7 @@ class PersonCl {
         return 2037 - this.birthYear;
     }
 
+    // Set a property that already exists
     set fullName(name) {
         console.log(name);
         if (name.includes(' ')) this._fullName = name;
@@ -106,6 +115,12 @@ class PersonCl {
 
     get fullName() {
         return this._fullName;
+    }
+
+    // Static Method
+    static hey() {
+        console.log('Hey There👋🏽');
+        console.log(this);
     }
 }
 
@@ -127,6 +142,7 @@ jess.greet();
 
 const walter = new PersonCl('Walter San', 1987);
 
+PersonCl.hey();
 
 const account = {
     owner: 'Kai',
@@ -145,3 +161,4 @@ console.log(account.latest);
 
 account.latest = 50;
 console.log(account.movements);
+
