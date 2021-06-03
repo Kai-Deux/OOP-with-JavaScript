@@ -80,8 +80,8 @@ console.dir(x => x + 1);
     
 // class declaration
 class PersonCl {
-    constructor(firstName, birthYear) {
-        this.firstName = firstName;
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
         this.birthYear = birthYear;
     }
 
@@ -93,11 +93,26 @@ class PersonCl {
     greet() {
         console.log(`Hey ${this.firstName}`);
     }
+
+    get age() {
+        return 2037 - this.birthYear;
+    }
+
+    set fullName(name) {
+        console.log(name);
+        if (name.includes(' ')) this._fullName = name;
+        else alert(`${name} is not a full name!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
 }
 
-const jess = new PersonCl('Jess', 1998);
+const jess = new PersonCl('Jess Rei', 1998);
 console.log(jess);
 jess.calcAge();
+console.log(jess.age);
 
 console.log(jess.__proto__ === PersonCl.prototype);
 
@@ -109,3 +124,24 @@ jess.greet();
 // 1. Classes are Not hoisted
 // 2. Classes are first-citizens
 // 3. Classes are executed in strict mode
+
+const walter = new PersonCl('Walter San', 1987);
+
+
+const account = {
+    owner: 'Kai',
+    movements: [200, 530, 120, 300],
+
+    get latest() {
+        return this.movements.slice(-1).pop();
+    },
+
+    set latest(mov) {
+        this.movements.push(mov);
+    },
+};
+
+console.log(account.latest);
+
+account.latest = 50;
+console.log(account.movements);
