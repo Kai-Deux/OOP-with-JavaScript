@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 const Person = function (firstName, birthYear) {
     // Instance properties
 
@@ -184,4 +184,96 @@ console.log(steven.__proto__ === PersonProto);
 const sara = Object.create(PersonProto);
 sara.init('Sara', 1979);
 sara.calcAge();
+*/
 
+// Inheritance Between "Classes": Constructor Functions
+
+const Person = function (firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+};
+
+Person.prototype.calcAge = function () {
+    console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+    Person.call(this, firstName, birthYear);
+    this.course = course;
+};
+
+// Linking prototypes
+// Student.prototype = Object.create(Person.prototype);
+
+Student.prototype.introduce = function () {
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+}
+
+const thunder = new Student('Thunder', 2020, 'Computer Science');
+thunder.introduce();
+// thunder.calcAge();
+
+console.log(thunder.__proto__);
+console.log(thunder.__proto__.__proto__);
+
+console.log(thunder instanceof Student);
+console.log(thunder instanceof Person);
+console.log(thunder instanceof Object);
+
+Student.prototype.constructor = Student;
+console.dir(Student.prototype.constructor);
+
+// Inheritance Between "Classes": ES6 Classes
+class PersonCl {
+    constructor(fullName, birthYear) {
+        this.fullName = fullName;
+        this.birthYear = birthYear;
+    }
+
+    calcAge() {
+        console.log(2037 - this.birthYear);
+    }
+
+    greet() {
+        console.log(`Hey ${this.firstName}`);
+    }
+
+    get age() {
+        return 2037 - this.birthYear;
+    }
+
+    set fullName(name) {
+        console.log(name);
+        if (name.includes(' ')) this._fullName = name;
+        else alert(`${name} is not a full name!`);
+    }
+
+    get fullName() {
+        return this._fullName;
+    }
+     // Static Method
+     static hey() {
+        console.log('Hey There👋🏽');
+        console.log(this);
+    }
+}
+class StudentCl extends PersonCl {
+    constructor(fullName, birthYear, course) {
+        // Always needs to happen first!
+        super(fullName, birthYear)
+        this.course = course;
+    }
+    
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}`);
+    }
+    
+    calcAge() {
+        console.log(` I am ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear + 10}`);
+    }
+}
+
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer Science');
+martha.introduce();
+martha.calcAge();
